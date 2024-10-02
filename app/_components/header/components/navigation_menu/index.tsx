@@ -48,21 +48,21 @@ export default function NavigationMenu() {
           <div className="grid w-[200px] p-4">
             <Link
               href="#"
-              className="text-lg font-medium hover:underline underline-offset-4"
+              className="text-sm font-medium hover:underline underline-offset-4"
               prefetch={false}
             >
               Inicio
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium hover:underline underline-offset-4"
+              className="text-sm font-medium hover:underline underline-offset-4"
               prefetch={false}
             >
               Sobre o Projeto
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium hover:underline underline-offset-4"
+              className="text-sm font-medium hover:underline underline-offset-4"
               prefetch={false}
             >
               Colabore
