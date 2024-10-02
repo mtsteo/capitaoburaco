@@ -33,7 +33,7 @@ export default function Component() {
     const intervalId = setInterval(updateElapsedTime, 1000)
 
     return () => clearInterval(intervalId)
-  }, [])
+  })
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
