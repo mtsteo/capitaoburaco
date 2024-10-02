@@ -3,8 +3,6 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Logo from "../logo";
 import { SVGProps } from "react";
-import localFont from "next/font/local";
-
 export default function NavigationMenu() {
   
   return (
