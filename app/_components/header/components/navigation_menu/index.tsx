@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Logo from "../logo";
+import { SVGProps } from "react";
 
 export default function NavigationMenu() {
   return (
@@ -74,9 +75,10 @@ export default function NavigationMenu() {
   );
 }
 
-function MenuIcon() {
+function MenuIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
+      {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
