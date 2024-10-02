@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +14,7 @@ export default function Component() {
 
   const getTime = () => {
     const past = Date.parse("2024-10-01 00:00:00");
-    const now = new Date();
+    const now : any = new Date();
     const diff = now - past;
 
     const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 30 * 12));
