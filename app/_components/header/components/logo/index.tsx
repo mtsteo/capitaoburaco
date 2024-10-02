@@ -6,7 +6,7 @@ import logo from "@/app/assets/images/capitao_rounded.png"
 function Logo() {
   return (
     <div>
-      <Image src={logo} width={60} height={60} alt=""/>
+      <Image src={logo} width={50} height={50} alt=""/>
     </div>
   );
 }

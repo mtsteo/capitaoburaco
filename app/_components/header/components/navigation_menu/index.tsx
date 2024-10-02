@@ -1,38 +1,35 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/CowzfwdSDEY
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Logo from "../logo";
 import { SVGProps } from "react";
+import localFont from "next/font/local";
 
 export default function NavigationMenu() {
+  
   return (
-    <div className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800">
+    <div className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800 font-[family-name:var(--font-geist-sans)]" >
       <Link href="#" className="flex items-center gap-2" prefetch={false}>
         <Logo />
       </Link>
       <div className="hidden md:flex gap-4">
         <Link
           href="#"
-          className="text-lg font-medium hover:underline underline-offset-4"
+          className=" text-base hover:underline underline-offset-8  "
           prefetch={false}
         >
           Inicio
         </Link>
         <Link
           href="#"
-          className="text-lg font-medium hover:underline underline-offset-4"
+          className=" text-base hover:underline underline-offset-8 "
           prefetch={false}
         >
           Sobre o Projeto
         </Link>
         <Link
           href="#"
-          className="text-lg font-medium hover:underline underline-offset-4"
+          className=" text-base hover:underline underline-offset-8 "
           prefetch={false}
         >
           Colabore
@@ -46,24 +43,24 @@ export default function NavigationMenu() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left">
-          <div className="grid w-[200px] p-4">
+          <div className="grid w-[200px] p-4 font-[family-name:var(--font-geist-sans)] ">
             <Link
               href="#"
-              className="text-sm font-medium hover:underline underline-offset-4"
+              className="text-lg font-medium hover:underline underline-offset-4"
               prefetch={false}
             >
               Inicio
             </Link>
             <Link
               href="#"
-              className="text-sm font-medium hover:underline underline-offset-4"
+              className="text-lg font-medium hover:underline underline-offset-4"
               prefetch={false}
             >
               Sobre o Projeto
             </Link>
             <Link
               href="#"
-              className="text-sm font-medium hover:underline underline-offset-4"
+              className="text-lg font-medium hover:underline underline-offset-4"
               prefetch={false}
             >
               Colabore
