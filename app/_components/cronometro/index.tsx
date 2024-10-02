@@ -24,7 +24,7 @@ export default function Component() {
     const mins = Math.floor(diff / (1000 * 60));
     const secs = Math.floor(diff / 1000);
 
-    setMonths(months - years * 12);
+    // setMonths(months - years * 12);
     setDays(days - months * 30);
     setHours(hours - days * 24);
     setMinutes(mins - hours * 60);
