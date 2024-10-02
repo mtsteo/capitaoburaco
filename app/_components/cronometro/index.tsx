@@ -17,7 +17,6 @@ export default function Component() {
     const now : any = new Date();
     const diff = now - past;
 
-    const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 30 * 12));
     const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor(diff / (1000 * 60 * 60));
