@@ -1,0 +1,41 @@
+
+.machine {
+  
+  width: 50rem;
+  height: 50rem;
+
+  background: #e3e3e3;
+  // border: 1px solid #e3e3e3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 1rem;
+  z-index: 100;
+
+  .screen {
+    width: 28rem;
+    height: 17rem;
+    border: 2px solid #e0e0e0;
+  }
+  .interface {
+    width: 18rem;
+    height: 20rem;
+  }
+
+
+  // Footer Design
+  // footer {
+  //   position: absolute;
+  //   width: 50rem;
+  //   bottom: 0;
+  //   display: flex;
+  //   justify-content: space-around;
+    
+  //   div {
+  //     width: 6px;
+  //     height: 1rem;
+  //     background-color: #111;
+  //   }
+  // }
+}
