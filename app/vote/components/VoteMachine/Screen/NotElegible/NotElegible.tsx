@@ -8,7 +8,6 @@ export function NotElegible() {
     <div className={styles.NotElegible}>
       <header>
         <span>{GetTodayDateFormated()}</span>
-        <h3>TREINAMENTO</h3>
       </header>
 
       <h2>Pessoa Não Identificada</h2>

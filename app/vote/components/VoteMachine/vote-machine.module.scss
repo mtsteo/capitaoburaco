@@ -1,28 +1,37 @@
-
 .machine {
-  
   width: 50rem;
-  height: 50rem;
-
+  height: 25rem;
+  gap: 1rem;
   background: #e3e3e3;
-  // border: 1px solid #e3e3e3;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-around;
   padding: 0 1rem;
-  z-index: 100;
+  border-radius: 1rem;
+
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    height: 50rem;
+    width: 22rem;
+  }
 
   .screen {
     width: 28rem;
     height: 17rem;
     border: 2px solid #e0e0e0;
+    border-radius: 1rem;
+
+    @media screen and (max-width: 600px) {
+      height: 25rem;
+      width: 20rem;
+    }
   }
   .interface {
-    width: 18rem;
+    width: 20rem;
     height: 20rem;
   }
-
 
   // Footer Design
   // footer {
@@ -31,7 +40,7 @@
   //   bottom: 0;
   //   display: flex;
   //   justify-content: space-around;
-    
+
   //   div {
   //     width: 6px;
   //     height: 1rem;

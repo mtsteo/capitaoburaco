@@ -8,7 +8,6 @@ export function WaitingVoter() {
     <div className={styles.WaitingVoter}>
       <header>
         <span>{GetTodayDateFormated()}</span>
-        <h3>TREINAMENTO</h3>
       </header>
 
       <h2>Urna pronta para receber o seu voto</h2>
