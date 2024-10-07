@@ -5,7 +5,6 @@ import styles from "./error-already-voted.module.scss";
 
 export function ErrorAlreadyVoted() {
 
-  const {ChangeScreen} = useVoteContext()
 
   useEffect(() => {
     const audio = new Audio("./Plililim.mp3");

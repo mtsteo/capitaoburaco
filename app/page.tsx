@@ -1,4 +1,3 @@
-import Cronometro from "./_components/cronometro";
 import LoginButton from "./_components/loginButton";
 
 export default function Home() {
