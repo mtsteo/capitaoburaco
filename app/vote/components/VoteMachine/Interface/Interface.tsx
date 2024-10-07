@@ -68,7 +68,6 @@ export function Interface({className, ...props}: DisplayProps){
   /** Return to main State if need */
   function ReturnIfNeeded(){
     if(status === "VoteViewer") {
-      ChangeScreen("WaitingVoter");
       setSelectedNumbers("");
     }
   }
@@ -91,7 +90,7 @@ export function Interface({className, ...props}: DisplayProps){
           <Button 
             format="text" 
             color="#fff" 
-            disabled={["WaitingVoter", "NotElegible", "Loading", "AlreadyVoted"].includes(status)}
+            disabled={["NotElegible", "Loading", "AlreadyVoted"].includes(status)}
             onClick={() => handleWhiteKeyPress()}
           >
             BRANCO <span>⠃⠗⠁⠝⠉⠕</span>

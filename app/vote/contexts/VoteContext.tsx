@@ -6,7 +6,6 @@ import { FindArrById } from "../lib/FindArrById";
 
 export type ScreenTypes = 
   "Loading" | 
-  "WaitingVoter" | 
   "VoteZone" | 
   "Transition" | // Screen where nothing happens
   "NotElegible" |
@@ -52,7 +51,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
   const [status, setScreen] = useState<ScreenTypes>("Loading");
   const [actualCandidate, setActualCandidate] = useState<votingSpecs|undefined>(undefined);
   const [votes, setVotes] = useState<number[]>([]);
-  const [currentVoter, setCurrentVoter] = useState<votingSpecs|undefined>(undefined);
+  const [currentVoter, setCurrentVoter] = useState<votingSpecs|undefined>({Id : 1, Nome : "Mateus", });
 
   const voters = getVotersRegistred();
   const votingCategorys = getVotingCategories();
@@ -62,7 +61,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
   useEffect(() => {
     setTimeout(() => {
       // First Load timing...
-      setScreen("WaitingVoter")
+      setScreen("VoteZone")
     }, 3000);
   },[]);
 
@@ -96,7 +95,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
     if(status === "Loading")
       return
 
-    if(["WaitingVoter", "NotElegible"].includes(status)){
+    if(["NotElegible"].includes(status)){
       if(selectedNumbers === "0000"){
         ChangeScreen("VoteViewer");
         return;
@@ -169,9 +168,10 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
     setSelectedNumbers("");
     setVotes([]);
     setVotingFor(0);
+    console.log("first")
 
     setTimeout(() => {
-      setScreen("WaitingVoter");
+      setScreen("AlreadyVoted");
     }, 3000);
   }
   

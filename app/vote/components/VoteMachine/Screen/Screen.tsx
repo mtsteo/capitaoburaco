@@ -3,7 +3,6 @@ import { useVoteContext } from "../../../contexts/VoteContext";
 import { Loading } from "./Loading/Loading";
 import styles from "./screen.module.scss";
 
-import { WaitingVoter } from "./WaitingVoter/WaitingVoter";
 import { NotElegible } from "./NotElegible/NotElegible";
 import { VotingZone } from "./VotingZone/VotingZone";
 import { Finalized } from "./Finalized/Finalized";
@@ -21,7 +20,6 @@ export function Screen({className, ...props}: ScreenProps){
 
   const screens = {
     Loading: <Loading/>,
-    WaitingVoter: <WaitingVoter/>,
     NotElegible: <NotElegible/>,
     VoteZone: <VotingZone/>,
     Finalized: <Finalized/>,
@@ -44,7 +42,6 @@ export function Screen({className, ...props}: ScreenProps){
 
       {/* 
       {status === "Loading" && <Loading/>}
-      {status === "WaitingVoter" && <WaitingVoter />}
       {status === "NotElegible" && <NotElegible />}
       {status === "VoteZone" && <VotingZone />}
       {status === "Finalized" && <Finalized />}
