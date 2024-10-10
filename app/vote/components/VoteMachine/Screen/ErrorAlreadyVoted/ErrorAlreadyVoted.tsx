@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useVoteContext } from "../../../../contexts/VoteContext";
 import styles from "./error-already-voted.module.scss";
 
 
