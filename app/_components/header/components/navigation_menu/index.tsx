@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+
 import Logo from "../logo";
 import { SVGProps } from "react";
+import { signOut, useSession } from "next-auth/react";
 export default function NavigationMenu() {
-  
+  const { status } = useSession();
+
   return (
-    <div className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800 font-[family-name:var(--font-geist-sans)]" >
+    <div className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800 font-[family-name:var(--font-geist-sans)]">
       <Link href="#" className="flex items-center gap-2" prefetch={false}>
         <Logo />
       </Link>
@@ -26,11 +29,12 @@ export default function NavigationMenu() {
           Sobre o Projeto
         </Link>
         <Link
+          onClick={() => signOut()}
           href="#"
           className=" text-base hover:underline underline-offset-8 "
           prefetch={false}
         >
-          Colabore
+          {status === "authenticated" ? "sair" : " "}
         </Link>
       </div>
       <Sheet>
@@ -57,11 +61,12 @@ export default function NavigationMenu() {
               Sobre o Projeto
             </Link>
             <Link
+              onClick={() => signOut()}
               href="#"
               className="text-lg font-medium hover:underline underline-offset-4"
               prefetch={false}
             >
-              Colabore
+              {status === "authenticated" ? "sair" : " "}
             </Link>
           </div>
         </SheetContent>
