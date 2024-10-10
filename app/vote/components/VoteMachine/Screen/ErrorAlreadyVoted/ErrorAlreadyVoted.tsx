@@ -4,13 +4,13 @@ import styles from "./error-already-voted.module.scss";
 
 export function ErrorAlreadyVoted() {
 
-
-  useEffect(() => {
-    const audio = new Audio("./Plililim.mp3");
-    audio.play();
+  // TODO: add audio  effect soon
+  // useEffect(() => {
+  //   const audio = new Audio("./Plililim.mp3");
+  //   audio.play();
 
   
-  }, [])
+  // }, [])
 
 
   return (

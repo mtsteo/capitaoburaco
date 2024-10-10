@@ -3,10 +3,10 @@ import styles from "./finalized.module.scss";
 
 export function Finalized() {
 
-  useEffect(() => {
-    const audio = new Audio("./Plililim.mp3");
-    audio.play();
-  },[])
+  // useEffect(() => {
+  //   const audio = new Audio("./Plililim.mp3");
+  //   audio.play();
+  // },[])
 
   return (
     <div className={styles.Finalized}>

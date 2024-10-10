@@ -18,11 +18,11 @@ export function Interface({className, ...props}: DisplayProps){
     ChangeScreen,
     setSelectedNumbers,
   } = useVoteContext();
-  const audio = new Audio("./Plim.mp3");
+  // const audio = new Audio("./Plim.mp3");
 
 
   function handleNumpadKeyPress(key: number) {
-    audio.play();
+    // audio.play();
     // console.log("Preview Numbers: "+selectedNumbers);
     
     if(
@@ -37,7 +37,7 @@ export function Interface({className, ...props}: DisplayProps){
   }
 
   function handleCorrectKeyPress() {
-    audio.play();
+    // audio.play();
     const newNumber = selectedNumbers.includes("•") ? "" :
     selectedNumbers.slice(0,selectedNumbers.length - 1);
 
@@ -45,7 +45,7 @@ export function Interface({className, ...props}: DisplayProps){
   }
 
   function handleWhiteKeyPress() {
-    audio.play();
+    // audio.play();
     if(status === "VoteViewer") {
       // clear all data
       localStorage.clear();
@@ -57,7 +57,7 @@ export function Interface({className, ...props}: DisplayProps){
   }
 
   function handleConfirmKeyPress() {
-    audio.play();
+    // audio.play();
     ReturnIfNeeded();
     if(status === "Loading" || selectedNumbers.length < maxCharacters) 
       return; // do nothing...
