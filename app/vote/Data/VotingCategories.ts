@@ -13,14 +13,14 @@ export function getVotingCategoriesData() {
         {Id: 33, Nome: "Pastel", Partido: "Massa", pictureUrl: "pastel.png"}
       ]
     },
-    bebidas: {
-      digits: 3,
-      candidates: [
-        {Id: 444, Nome: "Refrigerante", Partido: "RefriBra", pictureUrl: "refri.png"},
-        {Id: 777, Nome: "Suco", Partido: "Frutas", pictureUrl: "suco.png"},
-        {Id: 999, Nome: "Água", Partido: "Potável", pictureUrl: "agua.png"}
-      ]
-    },
+    // bebidas: {
+    //   digits: 3,
+    //   candidates: [
+    //     {Id: 444, Nome: "Refrigerante", Partido: "RefriBra", pictureUrl: "refri.png"},
+    //     {Id: 777, Nome: "Suco", Partido: "Frutas", pictureUrl: "suco.png"},
+    //     {Id: 999, Nome: "Água", Partido: "Potável", pictureUrl: "agua.png"}
+    //   ]
+    // },
     // automoveis: { //Basta descomentar isso para funcionar!
     //   digits: 4,
     //   candidates: [
