@@ -3,6 +3,7 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import LoginComponent from "../loginComponent";
+import Loading from "../loading";
 
 interface ProtectedPageWrapperProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ export const ProtectedPageWrapper: React.FC<ProtectedPageWrapperProps> = ({
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <div>Carregando...</div>;
+    return <Loading className="text-secondary"/>;
   }
 
   if (!session) {
