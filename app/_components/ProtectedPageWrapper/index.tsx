@@ -3,7 +3,7 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import LoginComponent from "../loginComponent";
-import Loading from "../loading";
+import CircularLoader from "../circularLoader";
 
 interface ProtectedPageWrapperProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export const ProtectedPageWrapper: React.FC<ProtectedPageWrapperProps> = ({
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <Loading className="text-secondary"/>;
+    return <CircularLoader className="text-secondary"/>;
   }
 
   if (!session) {
