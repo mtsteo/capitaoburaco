@@ -1,23 +1,24 @@
-
 import { useVoteContext } from "../../../../contexts/VoteContext";
-import styles from "./vote-table.module.scss";
-
 
 export function VoteTables() {
-
   const { selectedNumbers, maxCharacters } = useVoteContext();
   let index = -1;
 
   return (
-    <div className={styles.VoteTables}>
-      <div className={styles.numbers}>
-
+    <div className="inline-block">
+      <div className="flex items-center justify-center text-center">
         {[...Array(maxCharacters)].map(() => {
           index++;
-          return <div key={index}>{selectedNumbers[index] || "⠀"}</div>
+          return (
+            <div 
+              key={index} 
+              className="block w-6 h-8 font-bold mr-1 p-1 border border-dashed border-gray-600/40"
+            >
+              {selectedNumbers[index] || "⠀"}
+            </div>
+          );
         })}
-
       </div>
     </div>
-  )
+  );
 }
