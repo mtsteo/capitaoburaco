@@ -2,7 +2,6 @@
 import React from "react";
 import { VoteMachine } from "./components/VoteMachine/VoteMachine";
 import { ProtectedPageWrapper } from "../_components/ProtectedPageWrapper";
-import BannerCarousel from "../_components/bannerCarousel";
 
 export default function Vote() {
  
