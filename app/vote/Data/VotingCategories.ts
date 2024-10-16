@@ -1,5 +1,4 @@
-import Fernanda from "../assets/Fernanda.png"
-import Raimundo from "../assets/Raimundo.png"
+
 
 export function getVotingCategoriesData() {
 
