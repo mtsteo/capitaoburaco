@@ -3,6 +3,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 import { getVotersData } from "../Data/Voters";
 import { getVotingCategoriesData } from "../Data/VotingCategories";
 import { FindArrById } from "../lib/FindArrById";
+import { useSession } from "next-auth/react";
 
 export type ScreenTypes = 
   "Loading" | 
@@ -18,7 +19,7 @@ type VoteContextProviderData = {
   maxCharacters: number;
   status: ScreenTypes;
   votingFor: number;
-  currentVoter: votingSpecs | undefined;
+  currentVoter: userSpecs | undefined;
   actualCandidate: votingSpecs | undefined;
   getVotersRegistred: () => votingSpecs[];
   setSelectedNumbers: (numbers: string) => void;
@@ -40,6 +41,11 @@ export type votingSpecs = {
   Partido?: string;
   pictureUrl?: string;
 }
+export type userSpecs = {
+  Nome: string;
+  Email: string;
+  pictureUrl?: string;
+}
 
 
 export const VoteContext = createContext({} as VoteContextProviderData)
@@ -50,15 +56,15 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
   const [votingFor, setVotingFor] = useState(0);
   const [status, setScreen] = useState<ScreenTypes>("Loading");
   const [actualCandidate, setActualCandidate] = useState<votingSpecs|undefined>(undefined);
-  const [votes, setVotes] = useState<number[]>([]);
-  const [currentVoter, setCurrentVoter] = useState<votingSpecs|undefined>({Id : 1, Nome : "Mateus", });
+  const [currentVoter, setCurrentVoter] = useState<userSpecs>();
 
-  const voters = getVotersRegistred();
   const votingCategorys = getVotingCategories();
+  const {data : session} = useSession()
 
-
+  const VoterPerson = {Nome : session!.user!.name!, Email : session!.user!.email!, pictureUrl : session!.user!.image!};
 
   useEffect(() => {
+      setCurrentVoter(VoterPerson);
     setTimeout(() => {
       // First Load timing...
       setScreen("VoteZone")
@@ -90,7 +96,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
 
 
   /** when 'CONFIRMA/BRANCO' key is pressed */
-  function nextStep(isWhiteVote = false) {
+  function nextStep() {
     
     if(status === "Loading")
       return
@@ -100,28 +106,14 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
         ChangeScreen("VoteViewer");
         return;
       }
-      const VoterPerson = FindArrById(voters, Number(selectedNumbers));
-      setCurrentVoter(VoterPerson);
+      
       setVotingFor(0);
       setSelectedNumbers("");
 
-      if(VoterPerson){
-        const allVotersIdInStorage = localStorage.getItem("Voters") || "[]";
-        const allVotersId = JSON.parse(allVotersIdInStorage) as number[];
-        if(allVotersId.includes(VoterPerson.Id)){
-          ChangeScreen("AlreadyVoted");
-        }else {
-          ChangeScreen("VoteZone");
-        }
-      }
-      else {
-        ChangeScreen("NotElegible");
-      }
+    
     }
     
     if(status == "VoteZone") {
-      const voteIn = isWhiteVote ? -1: actualCandidate!.Id
-      setVotes(votes => [...votes, voteIn]);
       setVotingFor(num => (num + 1));
       setSelectedNumbers("");
       ChangeScreen("VoteZone");
@@ -150,23 +142,14 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
   }
 
   function HandleEndVotation(){
-    if(!currentVoter){
-      ChangeScreen("NotElegible");
-      return;
-    }
 
     ChangeScreen("Finalized");
     
-    SaveVote({
-      voter: currentVoter!,
-      votes: votes
-    });
 
     // Reset all states
     setActualCandidate(undefined);
     setMaxCharacters(4);
     setSelectedNumbers("");
-    setVotes([]);
     setVotingFor(0);
     console.log("first")
 
@@ -186,23 +169,23 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
     return data;
   }
 
-  type VoteProps = {
-    voter: votingSpecs;
-    votes: number[];
-  }
-  function SaveVote({votes, voter}: VoteProps){
-    // console.log("Saved: " + votes + " " + voter.Nome)
-    const allVotersInStorage = localStorage.getItem("Voters") || "[]";
-    const allVoters = JSON.parse(allVotersInStorage) as number[];
-    localStorage.setItem("Voters", JSON.stringify([...allVoters, voter.Id]))
+  // type VoteProps = {
+  //   voter: votingSpecs;
+  //   votes: number[];
+  // }
+  // function SaveVote({votes, voter}: VoteProps){
+  //   // console.log("Saved: " + votes + " " + voter.Nome)
+  //   const allVotersInStorage = localStorage.getItem("Voters") || "[]";
+  //   const allVoters = JSON.parse(allVotersInStorage) as number[];
+  //   localStorage.setItem("Voters", JSON.stringify([...allVoters, voter.Id]))
 
-    for(let i = 0; i < votes.length;i++){
-      const key = `${i}/${votes[i]}`; //save name
-      const prevVotes = localStorage.getItem(key) || "0";
-      const newVotes = Number(prevVotes) + 1;
-      localStorage.setItem(key,String(newVotes));
-    }
-  }
+  //   for(let i = 0; i < votes.length;i++){
+  //     const key = `${i}/${votes[i]}`; //save name
+  //     const prevVotes = localStorage.getItem(key) || "0";
+  //     const newVotes = Number(prevVotes) + 1;
+  //     localStorage.setItem(key,String(newVotes));
+  //   }
+  // }
   
   return <VoteContext.Provider value={{
     status,

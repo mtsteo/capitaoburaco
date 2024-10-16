@@ -8,8 +8,8 @@ export function getVotingCategoriesData() {
     PREFEITO: {
       digits: 2,
       candidates: [
-        {Id: 11, Nome: "PATA ROUCA", Partido: "FAMILIA ROUBA MAIS FAZ", pictureUrl: "https://i.ibb.co/bXSjSqg/Fernanda.png"},
-        {Id: 15, Nome: "BULDOG DA SHOPEE", Partido: "SOTOMATAKA", pictureUrl: "https://i.ibb.co/qMjwqTq/Raimundo.png"},
+        {Id: 11, Nome: "PATA ROUCA", Partido: "REI DOS LARANJAS", pictureUrl: "https://i.ibb.co/bXSjSqg/Fernanda.png"},
+        {Id: 15, Nome: "BULLDOG DA SHOPEE", Partido: "SOTOMATAKA", pictureUrl: "https://i.ibb.co/qMjwqTq/Raimundo.png"},
       ]
     },
     // bebidas: {

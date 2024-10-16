@@ -22,10 +22,8 @@ export function VotingZone() {
   return (
     <div className="w-full h-full bg-white flex flex-col relative font-sans">
       <header className="flex items-center justify-start gap-4 p-2 text-xs">
-        Usuário: {currentVoter.Nome}{" "}
-        <span className="inline text-left opacity-50 text-[0.7rem]">
-          #{currentVoter.Id}
-        </span>
+        Eleitor: {currentVoter.Nome}{" "}
+        <Image className="rounded-full" src={currentVoter.pictureUrl!} width={30} height={30} alt=""></Image>
       </header>
 
       <h2 className="text-left ml-2 text-base m-0">Seu voto para:</h2>
@@ -41,7 +39,7 @@ export function VotingZone() {
         quality={100}
         width={100}
         height={150}
-          src={`${actualCandidate.pictureUrl}` || "https://static.thenounproject.com/png/55168-200.png"}
+          src={actualCandidate.pictureUrl || "https://static.thenounproject.com/png/55168-200.png"}
           alt="Foto do candidato"
           className="absolute top-0 right-0 w-20 h-28 m-2 object-contain border border-dashed border-black/10"
         />
