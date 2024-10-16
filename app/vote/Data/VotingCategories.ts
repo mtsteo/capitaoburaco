@@ -1,16 +1,16 @@
-
+import Fernanda from "../assets/Fernanda.png"
+import Raimundo from "../assets/Raimundo.png"
 
 export function getVotingCategoriesData() {
 
   // Remember ID:0 = 'Null' > reserved vote id!
 
   return {
-    lanches: {
+    PREFEITO: {
       digits: 2,
       candidates: [
-        {Id: 11, Nome: "Hamburguer", Partido: "Breadzil", pictureUrl: "burguer.png"},
-        {Id: 22, Nome: "Pizza", Partido: "Brapzza", pictureUrl: "pizza.png"},
-        {Id: 33, Nome: "Pastel", Partido: "Massa", pictureUrl: "pastel.png"}
+        {Id: 11, Nome: "PATA ROUCA", Partido: "FAMILIA ROUBA MAIS FAZ", pictureUrl: "https://i.ibb.co/bXSjSqg/Fernanda.png"},
+        {Id: 15, Nome: "BULDOG DA SHOPEE", Partido: "SOTOMATAKA", pictureUrl: "https://i.ibb.co/qMjwqTq/Raimundo.png"},
       ]
     },
     // bebidas: {
@@ -31,3 +31,4 @@ export function getVotingCategoriesData() {
     // }
   }
 }
+

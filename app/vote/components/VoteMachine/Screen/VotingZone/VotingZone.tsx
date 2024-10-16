@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useVoteContext } from "../../../../contexts/VoteContext";
 import { VoteTables } from "../VoteTables/VoteTables";
 
@@ -36,15 +37,18 @@ export function VotingZone() {
       </div>
 
       {actualCandidate && (
-        <img
-          src={`/candidates/${actualCandidate.pictureUrl || "Question.png"}`}
+        <Image
+        quality={100}
+        width={100}
+        height={150}
+          src={`${actualCandidate.pictureUrl}` || "https://static.thenounproject.com/png/55168-200.png"}
           alt="Foto do candidato"
           className="absolute top-0 right-0 w-20 h-28 m-2 object-contain border border-dashed border-black/10"
         />
       )}
 
-      <p className="ml-4 mb-4">Nome: {actualCandidate?.Nome}</p>
-      <p className="ml-4 mb-4">Partido: {actualCandidate?.Partido}</p>
+      <p className="ml-4 mb-4 font-bold">Nome: {actualCandidate?.Nome}</p>
+      <p className="ml-4 mb-4 font-bold">Partido: {actualCandidate?.Partido}</p>
 
       <footer className="w-full flex flex-col text-left">
         <hr className="w-full border border-black" />

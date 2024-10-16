@@ -9,6 +9,16 @@ const nextConfig = {
         },
       ];
     },
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'i.ibb.co',
+          port: '',
+          pathname: '/**', // Permite qualquer caminho de imagem
+        },
+      ],
+    },
   };
   
   export default nextConfig;
