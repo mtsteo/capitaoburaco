@@ -23,15 +23,6 @@ export function VotingZone() {
     <div className="w-full h-full bg-white flex flex-col relative font-sans">
       <header className="flex items-center justify-start gap-4 p-2 text-xs">
         Eleitor: {!currentVoter ? "" : currentVoter.Nome}{" "}
-        {currentVoter && (
-          <Image
-            className="rounded-full"
-            src={currentVoter.pictureUrl!}
-            width={30}
-            height={30}
-            alt=""
-          ></Image>
-        )}
       </header>
 
       <h2 className="text-left ml-2 text-base m-0">Seu voto para:</h2>
