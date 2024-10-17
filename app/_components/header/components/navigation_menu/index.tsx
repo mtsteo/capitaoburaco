@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Logo from "../logo";
 import { SVGProps } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { DialogTitle } from "@radix-ui/react-dialog";
 export default function NavigationMenu() {
   const { status } = useSession();
 
@@ -45,6 +46,9 @@ export default function NavigationMenu() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left">
+        <VisuallyHidden>
+            <DialogTitle>Menu</DialogTitle>
+          </VisuallyHidden>
           <div className="grid w-[200px] p-4 font-[family-name:var(--font-geist-sans)] ">
             <Link
               href="#"
