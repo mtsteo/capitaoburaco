@@ -33,6 +33,7 @@ const InteractiveCalendar = () => {
       <CardContent className="space-y-4">
         <div className="space-y-6">
           <Calendar
+            disabled
             mode="range"
             selected={dateRange}
             onSelect={setDateRange}

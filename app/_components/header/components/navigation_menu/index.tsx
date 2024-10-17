@@ -49,7 +49,7 @@ export default function NavigationMenu() {
         <VisuallyHidden>
             <DialogTitle>Menu</DialogTitle>
           </VisuallyHidden>
-          <div className="grid w-[200px] p-4 font-[family-name:var(--font-geist-sans)] ">
+          < div className="grid w-[200px] p-4 font-[family-name:var(--font-geist-sans)] ">
             <Link
               href="#"
               className="text-lg font-medium hover:underline underline-offset-4"
