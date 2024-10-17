@@ -10,7 +10,7 @@ const Cronometro: React.FC = () => {
     seconds: 0,
   });
 
-  const startDate = useMemo(() => new Date("2024-10-16T08:00:00"), []);
+  const startDate = useMemo(() => new Date("2024-10-17T08:00:00"), []);
   const getTime = useCallback(() => {
     const now = new Date();
     const diff = now.getTime() - startDate.getTime();
