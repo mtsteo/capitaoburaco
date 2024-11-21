@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clientDb } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import { checkPreviousVote } from "../../../helpers/checkPreviousVote";
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,6 +11,15 @@ export async function POST(request: NextRequest) {
     // Conectar ao banco de dados
     const client = await clientDb;
     const db = client.db("elections");
+
+    // Verificar se o usuário já votou
+    const hasVoted = await checkPreviousVote(body.voterEmail);
+    if (hasVoted) {
+      return NextResponse.json(
+        { message: "Este email já foi utilizado para votar" },
+        { status: 409 } // Conflict status code
+      );
+    }
 
     // Preparar documento de voto
     const voteDocument = {

@@ -74,6 +74,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
 
   useEffect(() => {
     setCurrentVoter(VoterPerson);
+
     const getActualElection = async () => {
       try {
         const response = await fetch("/api/elections/election");
@@ -90,10 +91,13 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
     };
     getActualElection();
 
-    setTimeout(() => {
-      // First Load timing...
+    setTimeout(async () => {
+      const hasVoted = await checkPreviousVote();
+      if (hasVoted) {
+        setScreen("AlreadyVoted");
+      }
       setScreen("VoteZone");
-    }, 3000);
+    }, 2000);
   }, []);
 
   /** Shows in real time the current candidate */
@@ -118,6 +122,27 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
       setActualCandidate(undefined);
     }
   }, [selectedNumbers, status]);
+
+  // Função para verificar se já votou
+  async function checkPreviousVote() {
+    try {
+      const response = await fetch(
+        `/api/elections/vote/check?email=${encodeURIComponent(
+          VoterPerson.Email
+        )}`
+      );
+      const data = await response.json();
+
+      if (data.hasVoted) {
+        ChangeScreen("AlreadyVoted");
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Erro ao verificar status do voto:", error);
+      return false;
+    }
+  }
 
   /** when 'CONFIRMA/BRANCO' key is pressed */
   function nextStep() {
@@ -171,7 +196,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
     setVotingFor(0);
 
     setTimeout(() => {
-      setScreen("AlreadyVoted");
+      setScreen("Finalized");
     }, 3000);
   }
 
