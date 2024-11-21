@@ -8,7 +8,7 @@ export function VotingZone() {
     actualCandidate,
     votingFor,
     ChangeScreen,
-    getVotingCategories,
+    election,
   } = useVoteContext();
 
   if (!currentVoter) {
@@ -16,7 +16,7 @@ export function VotingZone() {
     return <></>;
   }
 
-  const categorys = Object.entries(getVotingCategories());
+  const categorys = Object.entries(election!);
   const votingIn = categorys[votingFor] && categorys[votingFor][0];
 
   return (
@@ -47,8 +47,8 @@ export function VotingZone() {
         />
       )}
 
-      <p className="ml-4 mb-4 font-bold">Nome: {actualCandidate?.Nome}</p>
-      <p className="ml-4 mb-4 font-bold">Partido: {actualCandidate?.Partido}</p>
+      <p className="ml-4 mb-4 font-bold">Nome: {actualCandidate?.name}</p>
+      <p className="ml-4 mb-4 font-bold">Partido: {actualCandidate?.party}</p>
 
       <footer className="w-full flex flex-col text-left">
         <hr className="w-full border border-black" />

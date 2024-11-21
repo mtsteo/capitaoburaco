@@ -5,8 +5,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getVotersData } from "../Data/Voters";
-import { getVotingCategoriesData } from "../Data/VotingCategories";
 import { FindArrById } from "../lib/FindArrById";
 import { useSession } from "next-auth/react";
 
@@ -26,24 +24,19 @@ type VoteContextProviderData = {
   votingFor: number;
   currentVoter: userSpecs | undefined;
   actualCandidate: votingSpecs | undefined;
-  getVotersRegistred: () => votingSpecs[];
+  election: ElectionProps | undefined;
   setSelectedNumbers: (numbers: string) => void;
+  saveVote: () => void;
   ChangeScreen: (newScreen: ScreenTypes) => void;
   nextStep: (isWhiteVote?: boolean) => void;
-  getVotingCategories: () => {
-    [key: string]: {
-      digits: number;
-      candidates: votingSpecs[];
-    };
-  };
 };
 type VoteContextProviderProps = {
   children: ReactNode;
 };
 export type votingSpecs = {
-  Id: number;
-  Nome: string;
-  Partido?: string;
+  id: number;
+  name: string;
+  party?: string;
   pictureUrl?: string;
 };
 export type userSpecs = {
@@ -51,6 +44,13 @@ export type userSpecs = {
   Email: string;
   pictureUrl?: string;
 };
+
+interface ElectionProps {
+  [key: string]: {
+    digits: number;
+    candidates: votingSpecs[];
+  };
+}
 
 export const VoteContext = createContext({} as VoteContextProviderData);
 export function VoteContextProvider(props: VoteContextProviderProps) {
@@ -62,19 +62,34 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
     votingSpecs | undefined
   >(undefined);
   const [currentVoter, setCurrentVoter] = useState<userSpecs>();
+  const [election, setElection] = useState<ElectionProps>();
 
-  const votingCategorys = getVotingCategories();
   const { data: session } = useSession();
 
   const VoterPerson = {
-    Nome: session?.user?.name ?? '',
-    Email: session?.user?.email ?? '',
-    pictureUrl: session?.user?.image ?? '',
+    Nome: session?.user?.name ?? "",
+    Email: session?.user?.email ?? "",
+    pictureUrl: session?.user?.image ?? "",
   };
 
   useEffect(() => {
-      setCurrentVoter(VoterPerson);
-    
+    setCurrentVoter(VoterPerson);
+    const getActualElection = async () => {
+      try {
+        const response = await fetch("/api/elections/election");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setElection(data[0]);
+      } catch (err) {
+        console.error("Erro ao buscar eleição:", err);
+        // Opcional: Adicionar um estado de erro para mostrar ao usuário
+        // setErrorMessage("Não foi possível carregar a eleição");
+      }
+    };
+    getActualElection();
+
     setTimeout(() => {
       // First Load timing...
       setScreen("VoteZone");
@@ -93,8 +108,8 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
         const isNull = !selectedNumbers.includes("•");
         setActualCandidate({
           //if the number is incorrect shows 'Nulo'
-          Id: isNull ? 0 : -1,
-          Nome: isNull ? "Nulo" : "Voto em Branco",
+          id: isNull ? 0 : -1,
+          name: isNull ? "Nulo" : "Voto em Branco",
         });
       } else {
         setActualCandidate(newCadidate);
@@ -127,7 +142,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
 
   /** Get vote options(candidates) and set maxChars  */
   function getAvalibleCandidates() {
-    const voteOptions = Object.entries(votingCategorys);
+    const voteOptions = Object.entries(election!);
     if (votingFor > voteOptions.length - 1) {
       // if don't have more options, end votation:
       HandleEndVotation();
@@ -154,41 +169,38 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
     setMaxCharacters(4);
     setSelectedNumbers("");
     setVotingFor(0);
-    console.log("first");
 
     setTimeout(() => {
       setScreen("AlreadyVoted");
     }, 3000);
   }
 
-  function getVotingCategories() {
-    // fetch the data...
-    const data = getVotingCategoriesData();
-    return data;
-  }
-  function getVotersRegistred() {
-    // fetch the data...
-    const data = getVotersData();
-    return data;
-  }
+  async function saveVote() {
+    try {
+      const response = await fetch("/api/elections/vote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          voterEmail: currentVoter?.Email,
+          voterName: currentVoter?.Nome,
+          candidateNumber: actualCandidate?.id,
+        }),
+      });
 
-  // type VoteProps = {
-  //   voter: votingSpecs;
-  //   votes: number[];
-  // }
-  // function SaveVote({votes, voter}: VoteProps){
-  //   // console.log("Saved: " + votes + " " + voter.Nome)
-  //   const allVotersInStorage = localStorage.getItem("Voters") || "[]";
-  //   const allVoters = JSON.parse(allVotersInStorage) as number[];
-  //   localStorage.setItem("Voters", JSON.stringify([...allVoters, voter.Id]))
+      if (!response.ok) {
+        throw new Error("Erro ao salvar voto");
+      }
 
-  //   for(let i = 0; i < votes.length;i++){
-  //     const key = `${i}/${votes[i]}`; //save name
-  //     const prevVotes = localStorage.getItem(key) || "0";
-  //     const newVotes = Number(prevVotes) + 1;
-  //     localStorage.setItem(key,String(newVotes));
-  //   }
-  // }
+      const result = await response.json();
+      console.log("Voto salvo:", result);
+      return result;
+    } catch (error) {
+      console.error("Erro ao salvar voto:", error);
+      // Tratar erro (mostrar mensagem ao usuário, etc.)
+    }
+  }
 
   return (
     <VoteContext.Provider
@@ -199,9 +211,9 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
         maxCharacters,
         selectedNumbers,
         actualCandidate,
-        getVotingCategories,
+        election,
+        saveVote,
         setSelectedNumbers,
-        getVotersRegistred,
         ChangeScreen,
         nextStep,
       }}

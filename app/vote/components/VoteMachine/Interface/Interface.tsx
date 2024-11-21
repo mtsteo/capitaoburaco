@@ -4,110 +4,104 @@ import styles from "./interface.module.scss";
 import { Button } from "./Button/Button";
 import { useVoteContext } from "../../../contexts/VoteContext";
 
-
-interface DisplayProps extends HTMLAttributes<HTMLDivElement>{
+interface DisplayProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
-export function Interface({className, ...props}: DisplayProps){
-
-  const { 
+export function Interface({ className, ...props }: DisplayProps) {
+  const {
     status,
-    selectedNumbers, 
+    selectedNumbers,
     maxCharacters,
     nextStep,
+    saveVote,
     ChangeScreen,
     setSelectedNumbers,
   } = useVoteContext();
   // const audio = new Audio("./Plim.mp3");
 
-
   function handleNumpadKeyPress(key: number) {
     // audio.play();
     // console.log("Preview Numbers: "+selectedNumbers);
-    
-    if(
-      selectedNumbers.length >= maxCharacters && 
-      !selectedNumbers.includes("•") ||
+
+    if (
+      (selectedNumbers.length >= maxCharacters &&
+        !selectedNumbers.includes("•")) ||
       ["Loading", "Finalized"].includes(status)
-    ) return;
-    
+    )
+      return;
+
     // if the vote is white, dont pass
-    const previousNumbers = selectedNumbers.includes("•") ? "": selectedNumbers;
+    const previousNumbers = selectedNumbers.includes("•")
+      ? ""
+      : selectedNumbers;
     setSelectedNumbers((previousNumbers + key).toString());
   }
 
   function handleCorrectKeyPress() {
     // audio.play();
-    const newNumber = selectedNumbers.includes("•") ? "" :
-    selectedNumbers.slice(0,selectedNumbers.length - 1);
+    const newNumber = selectedNumbers.includes("•")
+      ? ""
+      : selectedNumbers.slice(0, selectedNumbers.length - 1);
 
     setSelectedNumbers(newNumber);
   }
 
   function handleWhiteKeyPress() {
     // audio.play();
-    if(status === "VoteViewer") {
+    if (status === "VoteViewer") {
       // clear all data
       localStorage.clear();
       ChangeScreen("VoteViewer");
       setSelectedNumbers("");
     }
-    setSelectedNumbers("".padStart(maxCharacters,"•"));
+    setSelectedNumbers("".padStart(maxCharacters, "•"));
     // nextStep(true);
   }
 
   function handleConfirmKeyPress() {
     // audio.play();
     ReturnIfNeeded();
-    if(status === "Loading" || selectedNumbers.length < maxCharacters) 
-      return; // do nothing...
+    if (status === "Loading" || selectedNumbers.length < maxCharacters) return; // do nothing...
+    saveVote();
     nextStep();
   }
 
-
   /** Return to main State if need */
-  function ReturnIfNeeded(){
-    if(status === "VoteViewer") {
+  function ReturnIfNeeded() {
+    if (status === "VoteViewer") {
       setSelectedNumbers("");
     }
   }
 
   return (
-    <aside 
-      className={[
-        styles.display,
-        className
-      ].join(" ")}
-      {...props}
-    >
-      
-
+    <aside className={[styles.display, className].join(" ")} {...props}>
       <div>
-        
-        <Numpad onKeyPress={handleNumpadKeyPress}/>
+        <Numpad onKeyPress={handleNumpadKeyPress} />
 
         <div className={styles.buttons}>
-          <Button 
-            format="text" 
-            color="#fff" 
-            disabled={["NotElegible", "Loading", "AlreadyVoted"].includes(status)}
+          <Button
+            format="text"
+            color="#fff"
+            disabled={["NotElegible", "Loading", "AlreadyVoted"].includes(
+              status
+            )}
             onClick={() => handleWhiteKeyPress()}
           >
             BRANCO <span>⠃⠗⠁⠝⠉⠕</span>
           </Button>
 
-          <Button 
-            format="text" 
-            color="#cc6f35" 
+          <Button
+            format="text"
+            color="#cc6f35"
             onClick={() => handleCorrectKeyPress()}
           >
             CORRIGE <span>⠉⠕⠗⠗⠊⠛⠑</span>
           </Button>
 
-          <Button 
-            format="stretch" 
-            color="#1a9d4a" 
-            style={{height: "2rem"}}
+          <Button
+            format="stretch"
+            color="#1a9d4a"
+            style={{ height: "2rem" }}
             onClick={() => handleConfirmKeyPress()}
           >
             <big>CONFIRMA</big> <span>⠉⠕⠝⠋⠊⠗⠍⠁</span>
@@ -115,5 +109,5 @@ export function Interface({className, ...props}: DisplayProps){
         </div>
       </div>
     </aside>
-  )
+  );
 }
