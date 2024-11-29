@@ -3,6 +3,8 @@ import React from "react";
 import { VoteMachine } from "./components/VoteMachine/VoteMachine";
 import { ProtectedPageWrapper } from "../_components/ProtectedPageWrapper";
 
+
+
 export default function Vote() {
  
   return (
