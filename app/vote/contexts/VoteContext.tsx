@@ -98,7 +98,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
       }
       setScreen("VoteZone");
     }, 2000);
-  }, []);
+  }, [VoterPerson.Email]);
 
   /** Shows in real time the current candidate */
   useEffect(() => {
@@ -147,16 +147,6 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
   /** when 'CONFIRMA/BRANCO' key is pressed */
   function nextStep() {
     if (status === "Loading") return;
-
-    if (["NotElegible"].includes(status)) {
-      if (selectedNumbers === "0000") {
-        ChangeScreen("VoteViewer");
-        return;
-      }
-
-      setVotingFor(0);
-      setSelectedNumbers("");
-    }
 
     if (status == "VoteZone") {
       setVotingFor((num) => num + 1);
