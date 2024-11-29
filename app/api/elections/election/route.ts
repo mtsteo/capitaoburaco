@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { clientDb } from "../../../../lib/mongodb";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const client = await clientDb;
   const db = client.db("elections");
