@@ -1,18 +1,22 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 interface CircularLoaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  size?: 'sm' | 'md' | 'lg'
+  size?: "sm" | "md" | "lg";
 }
 
-export default function CircularLoader({ className, size = 'md', ...props }: CircularLoaderProps) {
+export default function CircularLoader({
+  className,
+  size = "md",
+  ...props
+}: CircularLoaderProps) {
   return (
     <div
       className={cn(
-        "inline-block animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]",
+        "inline-block mx-auto animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]",
         {
-          'h-4 w-4 border-2': size === 'sm',
-          'h-8 w-8 border-4': size === 'md',
-          'h-12 w-12 border-4': size === 'lg',
+          "h-4 w-4 border-2": size === "sm",
+          "h-8 w-8 border-4": size === "md",
+          "h-12 w-12 border-4": size === "lg",
         },
         className
       )}
@@ -23,5 +27,5 @@ export default function CircularLoader({ className, size = 'md', ...props }: Cir
         Loading...
       </span>
     </div>
-  )
+  );
 }
