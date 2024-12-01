@@ -5,7 +5,12 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Logo from "../logo";
 import { SVGProps, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { DialogTitle } from "@radix-ui/react-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function NavigationMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,18 +26,48 @@ export default function NavigationMenu() {
         <Logo />
       </Link>
       <div className="hidden md:flex gap-4">
-        {["Inicio", "Votar", "Resultados", "Sobre o Projeto"].map(
-          (text, index) => (
-            <Link
-              key={index}
-              href={["/", "/vote", "/results", "/about"][index]}
-              className="text-base hover:underline underline-offset-8"
-              prefetch={false}
-            >
-              {text}
-            </Link>
-          )
-        )}
+        <Link
+          href="/"
+          className="text-base hover:underline underline-offset-8"
+          prefetch={false}
+        >
+          Inicio
+        </Link>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className="text-base hover:underline underline-offset-8">
+              Eleições
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="font-[family-name:var(--font-geist-sans)]">
+            <DropdownMenuItem>
+              <Link
+                href="/vote"
+                className="w-full text-base hover:underline underline-offset-8"
+                prefetch={false}
+              >
+                Vote
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link
+                href="/results"
+                className="w-full text-base hover:underline underline-offset-8"
+                prefetch={false}
+              >
+                Resultado
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Link
+          href="/about"
+          className="text-base hover:underline underline-offset-8"
+          prefetch={false}
+        >
+          Sobre o Projeto
+        </Link>
         {status === "authenticated" && (
           <Link
             onClick={() => signOut()}
@@ -58,7 +93,7 @@ export default function NavigationMenu() {
         </SheetTrigger>
         <SheetContent side="right">
           <VisuallyHidden>
-            <DialogTitle>Menu</DialogTitle>
+            <h2>Menu</h2>
           </VisuallyHidden>
           <div className="grid w-[200px] p-4 font-[family-name:var(--font-geist-sans)]">
             {["Inicio", "Votar", "Resultados", "Sobre o Projeto"].map(
@@ -74,6 +109,35 @@ export default function NavigationMenu() {
                 </Link>
               )
             )}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="w-full justify-start">
+                  Mais Opções
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link
+                    href="/faq"
+                    className="w-full"
+                    onClick={handleLinkClick}
+                    prefetch={false}
+                  >
+                    FAQ
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    href="/contact"
+                    className="w-full"
+                    onClick={handleLinkClick}
+                    prefetch={false}
+                  >
+                    Contato
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             {status === "authenticated" && (
               <Link
                 onClick={() => {
