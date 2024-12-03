@@ -91,53 +91,57 @@ export default function NavigationMenu() {
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="right">
+        <SheetContent side="left">
           <VisuallyHidden>
             <h2>Menu</h2>
           </VisuallyHidden>
-          <div className="grid w-[200px] p-4 font-[family-name:var(--font-geist-sans)]">
-            {["Inicio", "Votar", "Resultados", "Sobre o Projeto"].map(
-              (text, index) => (
-                <Link
-                  key={index}
-                  href={["/", "/vote", "/results", "/about"][index]}
-                  className="text-lg font-medium hover:underline underline-offset-4"
-                  onClick={handleLinkClick}
-                  prefetch={false}
-                >
-                  {text}
-                </Link>
-              )
-            )}
+          <div className="grid w-[200px] gap-3 p-4 font-[family-name:var(--font-geist-sans)]">
+            <Link
+              href="/"
+              className="text-lg font-medium hover:underline underline-offset-4"
+              onClick={handleLinkClick}
+              prefetch={false}
+            >
+              Inicio
+            </Link>
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-full justify-start">
-                  Mais Opções
-                </Button>
+                <div className="text-lg font-medium hover:underline underline-offset-4">
+                  Eleições
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
                   <Link
-                    href="/faq"
-                    className="w-full"
+                    href="/vote"
+                    className="text-lg font-medium hover:underline underline-offset-4"
                     onClick={handleLinkClick}
                     prefetch={false}
                   >
-                    FAQ
+                    Vote
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link
-                    href="/contact"
-                    className="w-full"
+                    href="/results"
+                    className="text-lg font-medium hover:underline underline-offset-4"
                     onClick={handleLinkClick}
                     prefetch={false}
                   >
-                    Contato
+                    Resultados
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Link
+              href="/about"
+              className="text-lg font-medium hover:underline underline-offset-4"
+              onClick={handleLinkClick}
+              prefetch={false}
+            >
+              Sobre o projeto
+            </Link>
             {status === "authenticated" && (
               <Link
                 onClick={() => {
