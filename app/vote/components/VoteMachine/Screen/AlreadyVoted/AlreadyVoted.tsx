@@ -1,5 +1,7 @@
 import Image from "next/image";
 import logoGado from "../../../../assets/logo_gado.png";
+import { Button } from "../../../../../../components/ui/button";
+import Link from "next/link";
 
 export function AlreadyVoted() {
   // TODO: add audio effect soon
@@ -18,6 +20,15 @@ export function AlreadyVoted() {
       <p className="text-center m-0.5">
         Seu voto já foi registrado com SUCESSO!!
       </p>
+      <Button>
+        <Link
+          href="/results"
+          className="text-base hover:underline underline-offset-8"
+          prefetch={false}
+        >
+          Ver Resultados
+        </Link>
+      </Button>
     </div>
   );
 }
