@@ -47,7 +47,7 @@ export default function ElectionResultsPage() {
         <div>
           <h1 className="text-3xl font-bold mb-6 text-center">Resultados</h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 p-2 md:grid-cols-2 gap-6">
             {result &&
               result.map((candidate: any) => (
                 <Card key={candidate.name}>
@@ -62,17 +62,19 @@ export default function ElectionResultsPage() {
                     <CardTitle className="text-2xl">{candidate.name}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      <div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <p className="text-muted-foreground">
+                          Número de votos:{" "}
+                        </p>
                         <p className="text-2xl font-bold">{candidate.votes}</p>
-                        <p className="text-muted-foreground">Número de votos</p>
                       </div>
-                      <div>
+                      <div className="flex items-center gap-2">
+                        <p className="text-muted-foreground">
+                          Porcentagem do total de votos:
+                        </p>
                         <p className="text-2xl font-bold">
                           {((candidate.votes / totalVotes) * 100).toFixed(2)}%
-                        </p>
-                        <p className="text-muted-foreground">
-                          Porcentagem do total de votos
                         </p>
                       </div>
                       <Progress
