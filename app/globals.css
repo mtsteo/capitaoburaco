@@ -7,7 +7,6 @@ body {
   background-color: rgb(243, 153, 79);
 }
 
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -79,10 +78,17 @@ body {
   }
 }
 
-
 @keyframes fadeLoad {
-  0% { opacity: 0; }
-  42% { opacity: 1; }
-  58% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  42% {
+    opacity: 1;
+  }
+  58% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

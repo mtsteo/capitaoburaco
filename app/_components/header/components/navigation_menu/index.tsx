@@ -5,7 +5,12 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Logo from "../logo";
 import { SVGProps, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { DialogTitle } from "@radix-ui/react-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function NavigationMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,18 +26,48 @@ export default function NavigationMenu() {
         <Logo />
       </Link>
       <div className="hidden md:flex gap-4">
-        {["Inicio", "Votar", "Resultados", "Sobre o Projeto"].map(
-          (text, index) => (
-            <Link
-              key={index}
-              href={["/", "/vote", "/results", "/about"][index]}
-              className="text-base hover:underline underline-offset-8"
-              prefetch={false}
-            >
-              {text}
-            </Link>
-          )
-        )}
+        <Link
+          href="/"
+          className="text-base hover:underline underline-offset-8"
+          prefetch={false}
+        >
+          Inicio
+        </Link>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className="text-base hover:underline underline-offset-8">
+              Eleições
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="font-[family-name:var(--font-geist-sans)]">
+            <DropdownMenuItem>
+              <Link
+                href="/vote"
+                className="w-full text-base hover:underline underline-offset-8"
+                prefetch={false}
+              >
+                Vote
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link
+                href="/results"
+                className="w-full text-base hover:underline underline-offset-8"
+                prefetch={false}
+              >
+                Resultado
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Link
+          href="/about"
+          className="text-base hover:underline underline-offset-8"
+          prefetch={false}
+        >
+          Sobre o Projeto
+        </Link>
         {status === "authenticated" && (
           <Link
             onClick={() => signOut()}
@@ -56,24 +91,57 @@ export default function NavigationMenu() {
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="right">
+        <SheetContent side="left">
           <VisuallyHidden>
-            <DialogTitle>Menu</DialogTitle>
+            <h2>Menu</h2>
           </VisuallyHidden>
-          <div className="grid w-[200px] p-4 font-[family-name:var(--font-geist-sans)]">
-            {["Inicio", "Votar", "Resultados", "Sobre o Projeto"].map(
-              (text, index) => (
-                <Link
-                  key={index}
-                  href={["/", "/vote", "/results", "/about"][index]}
-                  className="text-lg font-medium hover:underline underline-offset-4"
-                  onClick={handleLinkClick}
-                  prefetch={false}
-                >
-                  {text}
-                </Link>
-              )
-            )}
+          <div className="grid w-[200px] gap-3 p-4 font-[family-name:var(--font-geist-sans)]">
+            <Link
+              href="/"
+              className="text-lg font-medium hover:underline underline-offset-4"
+              onClick={handleLinkClick}
+              prefetch={false}
+            >
+              Inicio
+            </Link>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className="text-lg font-medium hover:underline underline-offset-4">
+                  Eleições
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link
+                    href="/vote"
+                    className="text-lg font-medium hover:underline underline-offset-4"
+                    onClick={handleLinkClick}
+                    prefetch={false}
+                  >
+                    Vote
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    href="/results"
+                    className="text-lg font-medium hover:underline underline-offset-4"
+                    onClick={handleLinkClick}
+                    prefetch={false}
+                  >
+                    Resultados
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Link
+              href="/about"
+              className="text-lg font-medium hover:underline underline-offset-4"
+              onClick={handleLinkClick}
+              prefetch={false}
+            >
+              Sobre o projeto
+            </Link>
             {status === "authenticated" && (
               <Link
                 onClick={() => {
