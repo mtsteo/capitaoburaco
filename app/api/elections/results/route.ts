@@ -40,10 +40,17 @@ export async function GET() {
       votes: voteCounts[candidate.id] || 0, // Número de votos (ou 0 se não recebeu votos)
     }));
 
-    return NextResponse.json({
-      totalVotes,
-      results: electionResults,
-    });
+    return NextResponse.json(
+      {
+        totalVotes,
+        results: electionResults,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      }
+    );
   } catch (error) {
     console.error("Erro ao calcular resultados:", error);
     return NextResponse.json(
