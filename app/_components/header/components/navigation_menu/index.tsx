@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Logo from "../logo";
@@ -93,7 +98,7 @@ export default function NavigationMenu() {
         </SheetTrigger>
         <SheetContent side="left">
           <VisuallyHidden>
-            <h2>Menu</h2>
+            <SheetTitle>Menu</SheetTitle>
           </VisuallyHidden>
           <div className="grid w-[200px] gap-3 p-4 font-[family-name:var(--font-geist-sans)]">
             <Link

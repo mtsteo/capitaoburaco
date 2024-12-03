@@ -95,6 +95,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
       const hasVoted = await checkPreviousVote();
       if (hasVoted) {
         setScreen("AlreadyVoted");
+        return;
       }
       setScreen("VoteZone");
     }, 2000);
@@ -126,6 +127,7 @@ export function VoteContextProvider(props: VoteContextProviderProps) {
   // Função para verificar se já votou
   async function checkPreviousVote() {
     try {
+      if (!session) return;
       const response = await fetch(
         `/api/elections/vote/check?email=${encodeURIComponent(
           VoterPerson.Email
