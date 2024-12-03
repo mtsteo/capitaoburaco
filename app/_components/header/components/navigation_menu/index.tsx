@@ -21,10 +21,6 @@ export default function NavigationMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { status } = useSession();
 
-  const handleLinkClick = () => {
-    setIsMenuOpen(false); // Fecha o menu ao clicar em qualquer link
-  };
-
   return (
     <div className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800 font-[family-name:var(--font-geist-sans)]">
       <Link href="#" className="flex items-center gap-2" prefetch={false}>
@@ -104,7 +100,6 @@ export default function NavigationMenu() {
             <Link
               href="/"
               className="text-lg font-medium hover:underline underline-offset-4"
-              onClick={handleLinkClick}
               prefetch={false}
             >
               Inicio
@@ -121,7 +116,6 @@ export default function NavigationMenu() {
                   <Link
                     href="/vote"
                     className="text-lg font-medium hover:underline underline-offset-4"
-                    onClick={handleLinkClick}
                     prefetch={false}
                   >
                     Vote
@@ -131,7 +125,6 @@ export default function NavigationMenu() {
                   <Link
                     href="/results"
                     className="text-lg font-medium hover:underline underline-offset-4"
-                    onClick={handleLinkClick}
                     prefetch={false}
                   >
                     Resultados
@@ -142,7 +135,6 @@ export default function NavigationMenu() {
             <Link
               href="/about"
               className="text-lg font-medium hover:underline underline-offset-4"
-              onClick={handleLinkClick}
               prefetch={false}
             >
               Sobre o projeto
@@ -151,7 +143,6 @@ export default function NavigationMenu() {
               <Link
                 onClick={() => {
                   signOut();
-                  handleLinkClick();
                 }}
                 href="#"
                 className="text-lg font-medium hover:underline underline-offset-4"
