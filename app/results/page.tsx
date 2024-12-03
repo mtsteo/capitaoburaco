@@ -73,7 +73,7 @@ export default function ElectionResultsPage() {
                           {((candidate.votes / totalVotes) * 100).toFixed(2)}%
                         </p>
                         <p className="text-muted-foreground">
-                          Percentage of Total Votes
+                          Porcentagem do total de votos
                         </p>
                       </div>
                       <Progress
